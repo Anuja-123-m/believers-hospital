@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Lab Technician - Test Management</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+  <script type="module">
+    import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+    mermaid.initialize({ startOnLoad: true });
+  </script>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background: #f4f4f4;
+    }
+    header {
+      background: #2c3e50;
+      color: white;
+      padding: 15px;
+      text-align: center;
+    }
+    nav {
+      background: #34495e;
+      display: flex;
+      justify-content: center;
+    }
+    nav button {
+      background: none;
+      border: none;
+      color: white;
+      padding: 14px 20px;
+      cursor: pointer;
+      font-size: 16px;
+    }
+    nav button:hover {
+      background: #2c3e50;
+    }
+    section {
+      display: none;
+      padding: 20px;
+      background: white;
+      margin: 20px;
+      border-radius: 10px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    }
+    section.active {
+      display: block;
+    }
+    input, select {
+      padding: 8px;
+      margin: 5px 0;
+      width: 100%;
+      box-sizing: border-box;
+    }
+    button.submit {
+      background: #27ae60;
+      color: white;
+      padding: 10px 15px;
+      border: none;
+      cursor: pointer;
+      margin-top: 10px;
+    }
+    button.submit:hover {
+      background: #219150;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+    table, th, td {
+      border: 1px solid #ccc;
+    }
+    th, td {
+      padding: 10px;
+      text-align: left;
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <h1>Lab Technician - Test Management</h1>
+</header>
+
+<nav>
+  <button onclick="showSection('addTest')">Add Test</button>
+  <button onclick="showSection('listTests')">List Tests</button>
+  <button onclick="showSection('searchTest')">Search Test</button>
+  <button onclick="showSection('flowchart')">Workflow</button>
+</nav>
+
+<!-- Add Test Section -->
+<section id="addTest" class="active">
+  <h2>Add Test</h2>
+  <form id="testForm">
+    <label>Test Name:</label>
+    <input type="text" id="testName" required>
+
+    <label>Low Range:</label>
+    <input type="number" id="lowRange" required>
+
+    <label>High Range:</label>
+    <input type="number" id="highRange" required>
+
+    <label>Unit:</label>
+    <input type="text" id="unit" required>
+
+    <label>Price:</label>
+    <input type="number" id="price" required>
+
+    <button type="submit" class="submit">Add Test</button>
+  </form>
+</section>
+
+<!-- List Tests Section -->
+<section id="listTests">
+  <h2>List of Tests</h2>
+  <table id="testsTable">
+    <thead>
+      <tr>
+        <th>Test Name</th>
+        <th>Low Range</th>
+        <th>High Range</th>
+        <th>Unit</th>
+        <th>Price</th>
+      </tr>
+    </thead>
+    <tbody></tbody>
+  </table>
+</section>
+
+<!-- Search Test Section -->
+<section id="searchTest">
+  <h2>Search Test</h2>
+  <input type="text" id="searchInput" placeholder="Enter test name to search...">
+  <table id="searchResults">
+    <thead>
+      <tr>
+        <th>Test Name</th>
+        <th>Low Range</th>
+        <th>High Range</th>
+        <th>Unit</th>
+        <th>Price</th>
+      </tr>
+    </thead>
+    <tbody></tbody>
+  </table>
+</section>
+
+<!-- Workflow Section -->
+<section id="flowchart">
+  <h2>Workflow</h2>
+  <div class="mermaid">
+    flowchart TD
+      A[Lab Technician Logged In] --> B[Test Management Menu]
+      B --> C[Add Test]
+      B --> D[List of Tests]
+      B --> E[Search Test]
+      C --> F[Save in System]
+      D --> G[View All Tests]
+      E --> H[Display Matching Test]
+  </div>
+</section>
+
+<script>
+  let tests = [];
+
+  function showSection(id) {
+    document.querySelectorAll("section").forEach(sec => sec.classList.remove("active"));
+    document.getElementById(id).classList.add("active");
+  }
+
+  // Add Test
+  document.getElementById("testForm").addEventListener("submit", function(e) {
+    e.preventDefault();
+    let test = {
+      name: document.getElementById("testName").value,
+      low: document.getElementById("lowRange").value,
+      high: document.getElementById("highRange").value,
+      unit: document.getElementById("unit").value,
+      price: document.getElementById("price").value
+    };
+    tests.push(test);
+    alert("Test added successfully!");
+    this.reset();
+    updateTestsTable();
+  });
+
+  // Update List Table
+  function updateTestsTable() {
+    let tbody = document.querySelector("#testsTable tbody");
+    tbody.innerHTML = "";
+    tests.forEach(test => {
+      let row = `<tr>
+        <td>${test.name}</td>
+        <td>${test.low}</td>
+        <td>${test.high}</td>
+        <td>${test.unit}</td>
+        <td>${test.price}</td>
+      </tr>`;
+      tbody.innerHTML += row;
+    });
+  }
+
+  // Search Tests
+  document.getElementById("searchInput").addEventListener("input", function() {
+    let query = this.value.toLowerCase();
+    let tbody = document.querySelector("#searchResults tbody");
+    tbody.innerHTML = "";
+    let results = tests.filter(t => t.name.toLowerCase().includes(query));
+    results.forEach(test => {
+      let row = `<tr>
+        <td>${test.name}</td>
+        <td>${test.low}</td>
+        <td>${test.high}</td>
+        <td>${test.unit}</td>
+        <td>${test.price}</td>
+      </tr>`;
+      tbody.innerHTML += row;
+    });
+  });
+</script>
+
+</body>
+</html>

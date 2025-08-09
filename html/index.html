@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Believers Hospital</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+  <style>
+    /* Reset and base styles */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: "Poppins", sans-serif;
+    }
+
+    body {
+      background: linear-gradient(135deg, #f5f7fa 0%, #475058 100%);
+      color: #333;
+      min-height: 100vh;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: auto;
+      padding: 60px 20px 40px;
+      text-align: center;
+    }
+
+    .container h1 {
+      font-size: 2.8rem;
+      margin-bottom: 15px;
+      color: #1a3e72;
+      font-weight: 700;
+      text-shadow: 0 2px 4px rgba(0,0,0,0.05);
+    }
+
+    .container p {
+      font-size: 1.2rem;
+      margin-bottom: 50px;
+      color: #4a6fa5;
+      max-width: 700px;
+      margin-left: auto;
+      margin-right: auto;
+      line-height: 1.6;
+    }
+
+    /* Header decoration */
+    .header-decoration {
+      height: 4px;
+      width: 80px;
+      background: linear-gradient(90deg, #3a7bd5, #00d2ff);
+      margin: 0 auto 30px;
+      border-radius: 2px;
+    }
+
+    /* Grid Layout */
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 30px;
+    }
+
+    /* Card Styling */
+    .card {
+      background-color: #ffffff;
+      border-radius: 12px;
+      padding: 30px 25px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+      transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.1);
+      position: relative;
+      overflow: hidden;
+      border: 1px solid rgba(255,255,255,0.3);
+    }
+
+    .card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 5px;
+      background: linear-gradient(90deg, #3a7bd5, #00d2ff);
+    }
+
+    .card:hover {
+      transform: translateY(-10px) scale(1.02);
+      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.12);
+    }
+
+    .card i {
+      font-size: 3.5rem;
+      margin-bottom: 20px;
+      background: linear-gradient(135deg, #3a7bd5a0, #00d2ff);
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+      transition: transform 0.3s ease;
+    }
+
+    .card:hover i {
+      transform: scale(1.1);
+    }
+
+    .card h3 {
+      font-size: 1.6rem;
+      margin-bottom: 15px;
+      color: #1a3e72;
+      font-weight: 600;
+    }
+
+    .card p {
+      font-size: 1rem;
+      margin-bottom: 25px;
+      color: #5a6e8f;
+      line-height: 1.5;
+    }
+
+    /* Button Styling */
+    .card button {
+      padding: 12px 28px;
+      background: linear-gradient(135deg, #3a7bd588, #3300ffea);
+      color: #fff;
+      border: none;
+      border-radius: 30px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      font-weight: 500;
+      letter-spacing: 0.5px;
+      box-shadow: 0 4px 15px rgba(58, 123, 213, 0.3);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .card button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(58, 123, 213, 0.4);
+    }
+
+    .card button:active {
+      transform: translateY(0);
+    }
+
+    .card button::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(135deg, rgba(255,255,255,0.2), rgba(255,255,255,0));
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+
+    .card button:hover::after {
+      opacity: 1;
+    }
+
+    /* Responsive adjustments */
+    @media (max-width: 768px) {
+      .container {
+        padding: 40px 15px;
+      }
+      
+      .container h1 {
+        font-size: 2.2rem;
+      }
+      
+      .container p {
+        font-size: 1.1rem;
+      }
+      
+      .grid {
+        grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+        gap: 20px;
+      }
+    }
+
+    /* Footer */
+    .footer {
+      margin-top: 60px;
+      color: #5a6e8f;
+      font-size: 0.9rem;
+    }
+
+    /* Animation */
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .card {
+      animation: fadeIn 0.6s ease forwards;
+      opacity: 0;
+    }
+
+    .card:nth-child(1) { animation-delay: 0.1s; }
+    .card:nth-child(2) { animation-delay: 0.2s; }
+    .card:nth-child(3) { animation-delay: 0.3s; }
+    .card:nth-child(4) { animation-delay: 0.4s; }
+    .card:nth-child(5) { animation-delay: 0.5s; }
+    .card:nth-child(6) { animation-delay: 0.6s; }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <h1>Believers Hospital</h1>  
+    <h2>The most trusted Hospital in India</h2>
+    <div class="header-decoration"></div>
+    <p>Our hospital is committed to providing safe, high-quality medical care. We have a team of experienced doctors, nurses, and staff who work with dedication and compassion. Every patient is treated with respect and kindness. Your health, comfort, and well-being are always our top priorities.
+</p>
+
+    <div class="grid">
+      <div class="card">
+        <i class="fas fa-user-cog"></i>
+        <h3>Admin</h3>
+        <p>System administration, user management, and configuration settings</p>
+        <button>Login</button>
+      </div>
+
+      <div class="card">
+        <i class="fas fa-concierge-bell"></i>
+        <h3>Reception</h3>
+        <p>Patient check-in, appointment scheduling, and front desk operations</p>
+        <button>Login</button>
+      </div>
+
+      <div class="card">
+        <i class="fas fa-pills"></i>
+        <h3>Pharmacy</h3>
+        <p>Medication management, inventory control, and prescription processing</p>
+        <a href="pharmacy-login.html">
+          <button>Login</button>
+        </a>
+      </div>
+      
+      <div class="card">
+        <i class="fas fa-vials"></i>
+        <h3>Lab Technician</h3>
+        <p>Test results, diagnostics, and laboratory information management</p>
+        <a href="lab-login.html">
+          <button>Login</button>
+        </a>
+      </div>
+
+      <div class="card">
+        <i class="fas fa-chart-bar"></i>
+        <h3>Reports</h3>
+        <p>Analytics, statistics, and operational performance dashboards</p>
+        <button>View</button>
+      </div>
+
+      <div class="card">
+        <i class="fas fa-info-circle"></i>
+        <h3>About</h3>
+        <p>System information, version details, and support resources</p>
+        <button>Learn More</button>
+      </div>
+    </div>
+
+    <div class="footer">
+      <p>© 2023 Believers Hospital. All rights reserved.</p>  <!-- Updated footer text -->
+    </div>
+  </div>
+
+</body>
+</html>
